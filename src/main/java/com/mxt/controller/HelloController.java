@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 public class HelloController {
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
     @Autowired
     private TestService testService;
 
