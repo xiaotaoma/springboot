@@ -2,6 +2,8 @@ package com.mxt.controller;
 
 import com.mxt.model.Test;
 import com.mxt.service.TestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @RestController
 public class HelloController {
+    Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private TestService testService;
 
@@ -45,6 +48,15 @@ public class HelloController {
     @ResponseBody
     public Object userLogin() {
         List<Test> list = testService.list();
+        logger.debug("-------------------------------------------debug");
+        logger.info("-------------------------------------------info");
+        logger.error("-------------------------------------------error");
+        try {
+            throw new RuntimeException("xxxxxxxxxxxxxxxxxxxx");
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.error("error", e);
+        }
         return list;
     }
     @RequestMapping("/test1")
