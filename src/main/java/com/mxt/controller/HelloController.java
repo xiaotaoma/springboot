@@ -1,23 +1,24 @@
 package com.mxt.controller;
 
+import com.mxt.model.Test;
+import com.mxt.service.TestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by mxt on 18-2-5.
  */
 @RestController
 public class HelloController {
-
-    /*@RequestMapping("/")
-    public String index() {
-        System.out.println("index");
-        return "com/mxt/controller";
-    }*/
+    @Autowired
+    private TestService testService;
 
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) {
@@ -38,5 +39,18 @@ public class HelloController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public Object userLogin() {
+        List<Test> list = testService.list();
+        return list;
+    }
+    @RequestMapping("/test1")
+    @ResponseBody
+    public Object userLogin1() {
+        List<Test> list = testService.list1();
+        return list;
     }
 }
