@@ -5,6 +5,7 @@ import com.mxt.dao.extend.MyMapper;
 import com.mxt.model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,5 +25,10 @@ public class TestService {
 
     public List<Test> list1() {
         return myMapper.selectAll();
+    }
+
+    @Transactional
+    public void insert(Test test) {
+        testMapper.insert(test);
     }
 }
