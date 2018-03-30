@@ -1,6 +1,7 @@
 package com.mxt.controller;
 
 import com.mxt.model.Test;
+import com.mxt.service.RedisService;
 import com.mxt.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ public class HelloController {
     private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
     @Autowired
     private TestService testService;
+    @Autowired
+    private RedisService redisService;
 
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) {
@@ -64,5 +67,21 @@ public class HelloController {
     public Object userLogin1() {
         List<Test> list = testService.list1();
         return list;
+    }
+
+    @RequestMapping("/testRedis")
+    @ResponseBody
+    public String testRedis() {
+        for (int i = 0; i < 3; i++) {
+            String key = "key";
+            String value = "value" + i;
+            redisService.setValue(i, key, value);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            String key = "key";
+            System.out.println(redisService.getValue(i, key));
+        }
+        return "success";
     }
 }
