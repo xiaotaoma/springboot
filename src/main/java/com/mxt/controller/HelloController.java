@@ -1,5 +1,7 @@
 package com.mxt.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.mxt.configuration.TestConfig;
 import com.mxt.model.Test;
 import com.mxt.service.RedisService;
 import com.mxt.service.TestService;
@@ -25,6 +27,8 @@ public class HelloController {
     private TestService testService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private TestConfig testConfig;
 
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) {
@@ -72,16 +76,25 @@ public class HelloController {
     @RequestMapping("/testRedis")
     @ResponseBody
     public String testRedis() {
-        for (int i = 0; i < 3; i++) {
+        /*for (int i = 0; i < 3; i++) {
             String key = "key";
             String value = "value" + i;
             redisService.setValue(i, key, value);
-        }
+        }*/
 
         for (int i = 0; i < 3; i++) {
             String key = "key";
             System.out.println(redisService.getValue(i, key));
         }
         return "success";
+    }
+
+
+    @RequestMapping("/testConfig")
+    @ResponseBody
+    public String testConfig() {
+        System.out.println(testConfig.username);
+        System.out.println(testConfig.password);
+        return JSON.toJSONString(testConfig);
     }
 }
