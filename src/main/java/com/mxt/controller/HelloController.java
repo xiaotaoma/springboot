@@ -8,6 +8,7 @@ import com.mxt.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * Created by mxt on 18-2-5.
  */
-@RestController
+@Controller
 public class HelloController {
     private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
     @Autowired
@@ -96,5 +97,14 @@ public class HelloController {
         System.out.println(testConfig.username);
         System.out.println(testConfig.password);
         return JSON.toJSONString(testConfig);
+    }
+
+    @RequestMapping("/")
+    public String index() {
+        return "hello";
+    }
+    @RequestMapping("/index")
+    public String index2() {
+        return "hello2222";
     }
 }

@@ -16,7 +16,7 @@ public class MQService {
      * 监听消息队列
      * @param msg
      */
-    @JmsListener(destination = "test.queue")
+    //@JmsListener(destination = "test.queue")
     public void receiveMsg(String msg) {
         Test test = JSONObject.parseObject(msg, Test.class);
         testService.insert(test);
@@ -27,7 +27,7 @@ public class MQService {
      * 一个消息队列可以有多个消费者监听，分别在不用的线程处理
      * @param msg
      */
-    @JmsListener(destination = "test.queue")
+    //@JmsListener(destination = "test.queue")
     public void receiveMsg1(String msg) {
         Test test = JSONObject.parseObject(msg, Test.class);
         testService.insert(test);
