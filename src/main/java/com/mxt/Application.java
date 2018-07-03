@@ -1,7 +1,12 @@
 package com.mxt;
 
+import com.mxt.listener.MyApplicationEnvironmentPreparedEvent;
+import com.mxt.listener.MyApplicationFailedEvent;
+import com.mxt.listener.MyApplicationPreparedEvent;
+import com.mxt.listener.MyApplicationStartingListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Created by mxt on 18-2-5.
@@ -32,6 +37,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication app = new SpringApplication(Application.class);
+        app.addListeners(new MyApplicationStartingListener());
+        app.addListeners(new MyApplicationEnvironmentPreparedEvent());//此监听必须实现，不实现此监听器，其他监听不起作用
+        app.addListeners(new MyApplicationFailedEvent());
+        //app.addListeners(new MyApplicationPreparedEvent());
+        app.run(args);
     }
 }
