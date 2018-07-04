@@ -41,7 +41,7 @@ public class Application {
         app.addListeners(new MyApplicationStartingListener());
         app.addListeners(new MyApplicationEnvironmentPreparedEvent());//此监听必须实现，不实现此监听器，其他监听不起作用
         app.addListeners(new MyApplicationFailedEvent());
-        //app.addListeners(new MyApplicationPreparedEvent());
+        app.addListeners(new MyApplicationPreparedEvent());
         app.run(args);
     }
 }
