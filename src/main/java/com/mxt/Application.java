@@ -1,12 +1,15 @@
 package com.mxt;
 
+import com.mxt.aspect.MyMethodInterceptor;
 import com.mxt.listener.MyApplicationEnvironmentPreparedEvent;
 import com.mxt.listener.MyApplicationFailedEvent;
 import com.mxt.listener.MyApplicationPreparedEvent;
 import com.mxt.listener.MyApplicationStartingListener;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Created by mxt on 18-2-5.
@@ -35,6 +38,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  *
  */
 @SpringBootApplication
+@MapperScan("com.mxt.dao")
 public class Application {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
@@ -43,5 +47,10 @@ public class Application {
         app.addListeners(new MyApplicationFailedEvent());
         app.addListeners(new MyApplicationPreparedEvent());
         app.run(args);
+    }
+
+    @Bean
+    public MyMethodInterceptor myMethodInterceptor() {
+        return new MyMethodInterceptor();
     }
 }

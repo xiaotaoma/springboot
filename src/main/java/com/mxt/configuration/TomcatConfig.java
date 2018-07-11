@@ -12,15 +12,15 @@ import org.springframework.context.annotation.Configuration;
 import java.io.File;
 import java.nio.charset.Charset;
 
-@Configuration
+//@Configuration
 public class TomcatConfig {
-    @Value("${server.ssl.port}")
+    //@Value("${server.ssl.port}")
     private int sslPort;
-    @Value("${server.https.keyStore}")
+    //@Value("${server.https.keyStore}")
     private String keyStorePath;
-    @Value("${server.https.keyAlias}")
+    //@Value("${server.https.keyAlias}")
     private String keyAlias;
-    @Value("${server.https.keyPassword}")
+    //@Value("${server.https.keyPassword}")
     private String keyPassword;
 
 
