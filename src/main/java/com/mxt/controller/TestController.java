@@ -1,7 +1,11 @@
 package com.mxt.controller;
 
+import com.alibaba.rocketmq.client.exception.MQBrokerException;
+import com.alibaba.rocketmq.client.exception.MQClientException;
+import com.alibaba.rocketmq.remoting.exception.RemotingException;
 import com.mxt.annotation.Action;
 import com.mxt.component.EnvironmentComponent;
+import com.mxt.service.ProducerService;
 import com.mxt.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -67,5 +71,23 @@ public class TestController {
     @Action("hello")
     public String test(@RequestParam("key") String key) {
         return "cccccccc";
+    }
+    @Autowired
+    private ProducerService producerService;
+    @RequestMapping("/test2")
+    @ResponseBody
+    public String testmq() {
+        try {
+            producerService.sendMsg();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (RemotingException e) {
+            e.printStackTrace();
+        } catch (MQClientException e) {
+            e.printStackTrace();
+        } catch (MQBrokerException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
